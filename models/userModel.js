@@ -5,7 +5,6 @@ const userSchema=new mongoose.Schema({
         type:String,
         require:true,
         unique:true
-
     },
     password:{
         type:String,
@@ -18,7 +17,7 @@ const userSchema=new mongoose.Schema({
     },
     profileImg:{
         type:String,
-        require:true,
+        // require:true,
     },
     gender:{
         type:String,
