@@ -3,7 +3,6 @@ import MessageModel from "../models/messageModel.js"
 
 class MessageController {
 
-
     static getMessages = async (req, res) => {
        try{
         const receiverId=req.params.id;

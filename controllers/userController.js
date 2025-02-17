@@ -46,7 +46,7 @@ class UserController {
 
             if (isCreated) {
                 return res.status(201).json({
-                    success:true,
+                    success: true,
                     msg: "account created"
                 })
             }
@@ -56,7 +56,6 @@ class UserController {
                 msg: "account not created",
             })
         }
-        // res.send("resgister working")
 
     }
 
@@ -70,7 +69,7 @@ class UserController {
             if (!isUser) {
                 return res.status(401).json({
                     msg: "User does'nt exist",
-                    success:false
+                    success: false
                 })
 
             } else {
@@ -80,7 +79,7 @@ class UserController {
                 if (!isCorrect) {
                     return res.status(400).json({
                         msg: "invalid credentials",
-                        success:false
+                        success: false
                     })
                 }
 
@@ -90,23 +89,40 @@ class UserController {
                 }
                 const token = await jwt.sign(tokenData, tokenSecretKey, { expiresIn: "3d" })
 
-                return res.status(200).cookie("token",token,{maxAge:1*24*60*60,httpOnly:true, sameSite:"strict"}).json({
+                return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60, httpOnly: true, sameSite: "strict" }).json({
                     msg: "login successfully",
                     token: token,
                     user: {
-                        id:isUser._id,
-                        username:isUser.username,
-                        profile:isUser.profileImg,
-                        email:isUser.email
+                        id: isUser._id,
+                        username: isUser.username,
+                        profile: isUser.profileImg,
+                        email: isUser.email
                     }
                 })
             }
-            
+
         } catch (err) {
             console.log(err)
 
-            return res.status(401).json({     
+            return res.status(401).json({
                 msg: "Something went wrong"
+            })
+        }
+    }
+
+    static getOtherUsers = async (req, res) => {
+        try {
+            const otherUsers = await UserModel.find({}).select("-password")
+            console.log(otherUsers)
+
+            res.status(200).json({
+                data: otherUsers,
+                success: false
+            })
+        } catch (errr) {
+            res.status(400).json({
+                data: [],
+                success: false
             })
         }
     }
