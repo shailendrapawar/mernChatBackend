@@ -8,6 +8,7 @@ import connectDB from "./configs/dbConfig.js";
 connectDB()
 //================router imports================
 import userRouter from "./routes/userRoute.js";
+import messageRouter from "./routes/messageRoute.js"
 // ===============================================
 
 
@@ -15,13 +16,18 @@ import userRouter from "./routes/userRoute.js";
 
 //==============middelwares imports==============
 import cors from "cors"
-
+import cookieParser from "cookie-parser";
 app.use(cors({
     origin:"*",
-    methods:["POST","GET"]
+    credentials:true,
+    methods:["POST","GET"],
+    
 }))
+app.use(cookieParser())
 app.use(express.json())
 app.use("/auth",userRouter)
+app.use("/user",messageRouter)
+
 
 
 
@@ -37,4 +43,5 @@ app.use("/auth",userRouter)
 const PORT=process.env.PORT||5000
 app.listen(PORT,()=>{
     console.log(`Server running at port ${PORT}`)
+
 })

@@ -46,6 +46,7 @@ class UserController {
 
             if (isCreated) {
                 return res.status(201).json({
+                    success:true,
                     msg: "account created"
                 })
             }
@@ -68,7 +69,8 @@ class UserController {
             const isUser = await UserModel.findOne({ $or: [{ email: identifier }, { username: identifier }] });
             if (!isUser) {
                 return res.status(401).json({
-                    msg: "User does'nt exist"
+                    msg: "User does'nt exist",
+                    success:false
                 })
 
             } else {
@@ -77,7 +79,8 @@ class UserController {
 
                 if (!isCorrect) {
                     return res.status(400).json({
-                        msg: "invalid credentials"
+                        msg: "invalid credentials",
+                        success:false
                     })
                 }
 
@@ -87,7 +90,7 @@ class UserController {
                 }
                 const token = await jwt.sign(tokenData, tokenSecretKey, { expiresIn: "3d" })
 
-                return res.status(200).json({
+                return res.status(200).cookie("token",token,{maxAge:1*24*60*60,httpOnly:true, sameSite:"strict"}).json({
                     msg: "login successfully",
                     token: token,
                     user: {
@@ -98,20 +101,14 @@ class UserController {
                     }
                 })
             }
+            
         } catch (err) {
             console.log(err)
 
             return res.status(401).json({     
                 msg: "Something went wrong"
             })
-
         }
-
-
-
-
-
-
     }
 
 
