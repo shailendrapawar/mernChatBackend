@@ -4,7 +4,7 @@ import authMiddleware from "../middlewares/authMiddleware.js"
 
 const messageRouter=express.Router();
 
-messageRouter.post("/getMessages",authMiddleware,MessageController.getMessages);
+messageRouter.get("/getMessages/:id",authMiddleware,MessageController.getMessages);
 messageRouter.post("/sendMessage",authMiddleware,MessageController.sendMessage)
 
 

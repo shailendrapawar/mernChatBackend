@@ -3,13 +3,26 @@ import MessageModel from "../models/messageModel.js"
 
 class MessageController {
 
-    
+
     static getMessages = async (req, res) => {
-        res.send("send messsage working")
+       try{
+        const receiverId=req.params.id;
+        const senderId=req.id;
+
+        const conversation=await ConversationModel.findOne({
+            participants:{$all:[senderId,receiverId]}
+
+        }).populate("messages")
+        res.status(200).json({
+            msg:"conversation found",
+            data:conversation.messages||[]
+        })
+       }catch(err){
+        res.status(400).json({
+            msg:"some error finding coversation",
+        })
+       }
     }
-
-
-
 
 
 
