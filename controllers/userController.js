@@ -111,8 +111,11 @@ class UserController {
     }
 
     static getOtherUsers = async (req, res) => {
+        const loggedUserId=req.id
         try {
-            const otherUsers = await UserModel.find({}).select("-password")
+            const otherUsers = await UserModel.find({_id:{
+                $ne:loggedUserId
+            }}).select("-password")
             console.log(otherUsers)
 
             res.status(200).json({

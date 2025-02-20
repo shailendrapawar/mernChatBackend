@@ -14,7 +14,7 @@ class MessageController {
         }).populate("messages")
         res.status(200).json({
             msg:"conversation found",
-            data:conversation.messages||[]
+            data:conversation?.messages||[]
         })
        }catch(err){
         res.status(400).json({
