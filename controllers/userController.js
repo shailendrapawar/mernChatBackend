@@ -61,10 +61,9 @@ class UserController {
 
     static login = async (req, res) => {
 
+        
         try {
-
             const { identifier, password } = req.body;
-
             const isUser = await UserModel.findOne({ $or: [{ email: identifier }, { username: identifier }] });
             if (!isUser) {
                 return res.status(401).json({
@@ -116,7 +115,7 @@ class UserController {
             const otherUsers = await UserModel.find({_id:{
                 $ne:loggedUserId
             }}).select("-password")
-            console.log(otherUsers)
+            // console.log(otherUsers)
 
             res.status(200).json({
                 data: otherUsers,

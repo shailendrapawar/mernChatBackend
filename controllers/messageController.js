@@ -1,5 +1,6 @@
 import ConversationModel from "../models/conversationModel.js"
 import MessageModel from "../models/messageModel.js"
+import { getRecieverId, io } from "../socket/socket.js";
 
 class MessageController {
 
@@ -61,6 +62,10 @@ class MessageController {
             const isSent = await gotCoversation.save()
 
             if (isSent) {
+                const receiverSocketId=getRecieverId(receiverId);
+                if(receiverSocketId){
+                    io.to(receiverSocketId).emit("newMessage",newMessage)
+                }
                 return res.status(200).json({
                     msg: "message sent",
                     data: isCreated
