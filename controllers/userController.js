@@ -88,7 +88,7 @@ class UserController {
                 }
                 const token = await jwt.sign(tokenData, tokenSecretKey, { expiresIn: "3d" })
 
-                return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60, httpOnly: true, sameSite: "strict" }).json({
+                return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 *1000, httpOnly: true, sameSite: "strict" }).json({
                     msg: "login successfully",
                     token: token,
                     user: {
