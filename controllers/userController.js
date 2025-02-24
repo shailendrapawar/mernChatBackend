@@ -139,7 +139,8 @@ class UserController {
        }catch(err){
         console.log(err)
         return res.status(400).json({
-            msg:"internal server error"
+            msg:"internal server error",
+            success:true
         })
        }
     }
