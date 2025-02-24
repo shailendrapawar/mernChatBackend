@@ -4,7 +4,10 @@ dotenv.config();
 
 const connectDB = async () => {
     try {
-        const res = await mongoose.connect(process.env.MONGO_URL)
+        const res = await mongoose.connect(process.env.MONGO_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        })
         if (res) {
             console.log("DB connected for Chat App")
         }
