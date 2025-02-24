@@ -1,6 +1,5 @@
 // ============import imports====================================
-import express from "express"
-import { configDotenv } from "dotenv";
+import express, { urlencoded } from "express"
 import dotenv from "dotenv"
 dotenv.config()
 import connectDB from "./configs/dbConfig.js";
@@ -13,16 +12,15 @@ import messageRouter from "./routes/messageRoute.js"
 // ============== socket imports================
 import {app,myServer,io} from "./socket/socket.js"
 
-
 //==============middelwares imports==============
 import cors from "cors"
 import cookieParser from "cookie-parser";
 app.use(cors({
-    origin:["https://mern-chat-frontend-sigma.vercel.app/","*","http://localhost:5173"],
+    origin:["https://mern-chat-frontend-sepia.vercel.app/","*","http://localhost:5173"],
     credentials:true,
     methods:["POST","GET"],
-    
 }))
+app.use(express.urlencoded({extended:true}));
 app.use(cookieParser())
 app.use(express.json())
 app.use("/auth",userRouter)
@@ -30,7 +28,6 @@ app.use("/user",messageRouter)
 
 app.get("/",(req,res)=>{
     res.status(200).send("server working")
-
 })
 
 //================router imports
