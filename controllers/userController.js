@@ -130,6 +130,21 @@ class UserController {
     }
 
 
+    static logout=async(req,res)=>{
+
+       try{
+        return res.status(200).cookie("token","",{maxAge:0}).json({
+            msg:"logged out successafully"
+        })
+       }catch(err){
+        console.log(err)
+        return res.status(400).json({
+            msg:"internal server error"
+        })
+       }
+    }
+
+
 }
 
 export default UserController

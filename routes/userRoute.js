@@ -10,6 +10,7 @@ userRouter.post("/login",UserController.login)
 userRouter.post("/register",UserController.register)
 
 userRouter.get("/getOtherUsers",authmiddleware,UserController.getOtherUsers);
+userRouter.get("/logout",UserController.logout)
 
 
 export default userRouter;
