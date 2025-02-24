@@ -14,7 +14,6 @@ import messageRouter from "./routes/messageRoute.js"
 import {app,myServer,io} from "./socket/socket.js"
 
 
-
 //==============middelwares imports==============
 import cors from "cors"
 import cookieParser from "cookie-parser";
