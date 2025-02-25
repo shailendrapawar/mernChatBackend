@@ -10,7 +10,7 @@ const io=new Server(myServer,{
     cors:{
         origin:"https://mern-chat-frontend-sepia.vercel.app",
         methods:["GET","POST"],
-        allowedHeaders: ["Content-Type", "Authorization"],
+        // allowedHeaders: ["Content-Type", "Authorization"],
     }
 })
 

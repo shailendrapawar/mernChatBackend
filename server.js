@@ -21,14 +21,14 @@ app.use(cors({
     origin: "https://mern-chat-frontend-sepia.vercel.app",
     credentials: true,
     methods: ["POST", "GET"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+    // allowedHeaders: ["Content-Type", "Authorization"]
 }))
 
 app.options("*", cors({
     origin: "https://mern-chat-frontend-sepia.vercel.app",
     credentials: true,
     methods: ["POST", "GET"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+    // allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 
