@@ -8,7 +8,7 @@ import {Server} from "socket.io"
 
 const io=new Server(myServer,{
     cors:{
-        origin:"https://mern-chat-frontend-sepia.vercel.app",
+        origin:["https://mern-chat-frontend-sepia.vercel.app","http://localhost:5173"],
         methods:["GET","POST"],
         // allowedHeaders: ["Content-Type", "Authorization"],
     }
@@ -24,7 +24,7 @@ export const getRecieverId=(userId)=>{
 
 io.on("connection",(socket)=>{
     //new client connected=======
-    console.log(" user:- "+socket.id)
+    // console.log(" user:- "+socket.id)
     const {userId}=socket.handshake.query
 
     if(userId!==undefined){
@@ -32,12 +32,9 @@ io.on("connection",(socket)=>{
     }
 
 
-
     //====events==================
     io.emit("getOnlineUsers",Object.keys(activeUsers))
     
-
-
     socket.on("disconnect",()=>{
         console.log("socket dissconnected")
         delete activeUsers[userId];
