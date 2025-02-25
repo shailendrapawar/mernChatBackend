@@ -31,9 +31,7 @@ app.options("*", cors({
     // allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-
 app.use(express.urlencoded({ extended: true }));
-
 app.use(express.json())
 app.use("/auth", userRouter)
 app.use("/user", messageRouter)
