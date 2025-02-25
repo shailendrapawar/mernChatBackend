@@ -17,14 +17,14 @@ import cors from "cors"
 import cookieParser from "cookie-parser";
 
 app.use(cors({
-    origin: "https://mern-chat-frontend-sepia.vercel.app/",
+    origin: "https://mern-chat-frontend-sepia.vercel.app",
     credentials: true,
     methods: ["POST", "GET"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }))
 
 app.options("*", cors({
-    origin: "https://mern-chat-frontend-sepia.vercel.app/",
+    origin: "https://mern-chat-frontend-sepia.vercel.app",
     credentials: true,
     methods: ["POST", "GET"],
     allowedHeaders: ["Content-Type", "Authorization"]

@@ -8,7 +8,7 @@ import {Server} from "socket.io"
 
 const io=new Server(myServer,{
     cors:{
-        origin:"https://mern-chat-frontend-sepia.vercel.app/",
+        origin:"https://mern-chat-frontend-sepia.vercel.app",
         methods:["GET","POST"],
         allowedHeaders: ["Content-Type", "Authorization"],
     }
