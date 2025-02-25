@@ -16,6 +16,7 @@ import { app, myServer } from "./socket/socket.js"
 import cors from "cors"
 import cookieParser from "cookie-parser";
 
+app.use(cookieParser())
 app.use(cors({
     origin: "https://mern-chat-frontend-sepia.vercel.app",
     credentials: true,
@@ -32,7 +33,7 @@ app.options("*", cors({
 
 
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser())
+
 app.use(express.json())
 app.use("/auth", userRouter)
 app.use("/user", messageRouter)
