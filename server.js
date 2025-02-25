@@ -1,5 +1,5 @@
 // ============import imports====================================
-import express, { urlencoded } from "express"
+import express from "express"
 import dotenv from "dotenv"
 dotenv.config()
 import connectDB from "./configs/dbConfig.js";
@@ -10,7 +10,7 @@ import messageRouter from "./routes/messageRoute.js"
 // ===============================================
 
 // ============== socket imports================
-import { app, myServer, io } from "./socket/socket.js"
+import { app, myServer } from "./socket/socket.js"
 
 //==============middelwares imports==============
 import cors from "cors"
