@@ -2,6 +2,8 @@ import UserModel from "../models/userModel.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
+import { io } from "../socket/socket.js"
+
 dotenv.config()
 
 class UserController {
@@ -43,8 +45,13 @@ class UserController {
             })
 
             const isCreated = await newUser.save();
+            // console.log(isCreated)
 
             if (isCreated) {
+                const user=isCreated.toObject();
+                delete user.password;
+            
+                io.emit("addNewUser",user)
                 return res.status(201).json({
                     success: true,
                     msg: "account created"
@@ -61,7 +68,7 @@ class UserController {
 
     static login = async (req, res) => {
 
-        
+
         try {
             const { identifier, password } = req.body;
             const isUser = await UserModel.findOne({ $or: [{ email: identifier }, { username: identifier }] });
@@ -88,7 +95,7 @@ class UserController {
                 }
                 const token = await jwt.sign(tokenData, tokenSecretKey, { expiresIn: "3d" })
 
-                return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 *1000, httpOnly: true,secure:true, sameSite: "none" }).json({
+                return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, secure: true, sameSite: "none" }).json({
                     msg: "login successfully",
                     token: token,
                     user: {
@@ -109,12 +116,15 @@ class UserController {
         }
     }
 
+
     static getOtherUsers = async (req, res) => {
-        const loggedUserId=req.id
+        const loggedUserId = req.id
         try {
-            const otherUsers = await UserModel.find({_id:{
-                $ne:loggedUserId
-            }}).select("-password")
+            const otherUsers = await UserModel.find({
+                _id: {
+                    $ne: loggedUserId
+                }
+            }).select("-password")
             // console.log(otherUsers)
 
             res.status(200).json({
@@ -130,19 +140,19 @@ class UserController {
     }
 
 
-    static logout=async(req,res)=>{
+    static logout = async (req, res) => {
 
-       try{
-        return res.status(200).cookie("token","",{maxAge:0}).json({
-            msg:"logged out successafully"
-        })
-       }catch(err){
-        console.log(err)
-        return res.status(400).json({
-            msg:"internal server error",
-            success:true
-        })
-       }
+        try {
+            return res.status(200).cookie("token", "", { maxAge: 0 }).json({
+                msg: "logged out successafully"
+            })
+        } catch (err) {
+            console.log(err)
+            return res.status(400).json({
+                msg: "internal server error",
+                success: true
+            })
+        }
     }
 
 

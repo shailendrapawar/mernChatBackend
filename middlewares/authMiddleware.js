@@ -8,6 +8,7 @@ const authmiddleware=async(req,res,next)=>{
         // console.log("Cookies received:", req.cookies)
     if(!token){
         return res.status(401).json({msg:"user not authenticated"})
+        // res.redire
     };
     const decode=await jwt.verify(token,process.env.TOKEN_SECRET)
 

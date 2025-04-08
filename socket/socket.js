@@ -29,6 +29,8 @@ io.on("connection",(socket)=>{
 
     if(userId!==undefined){
         activeUsers[userId]=socket.id
+
+        
     }
 
 
